@@ -13,6 +13,7 @@ const hotelRooms = [
 
 const filterAvailableRooms = (rooms) => {
     // ΓΡAΨΕ ΤΟΝ ΚΩΔΙΚA ΣΟΥ ΕΔΩ
+    return rooms.filter(room => room.isAvailable && room.price <= 150);
 };
 
 // 3. Έλεγχος αποτελέσματος
