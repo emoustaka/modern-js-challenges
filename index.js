@@ -1,21 +1,27 @@
-// 1. Τα δεδομένα μας (Array of Objects)
-const hotelRooms = [
-    { id: 1, name: "Standard Room", price: 80, isAvailable: true },
-    { id: 2, name: "Superior Suite", price: 150, isAvailable: false },
-    { id: 3, name: "Deluxe Villa", price: 300, isAvailable: true },
-    { id: 4, name: "Executive Room", price: 120, isAvailable: true }
+// 1. Τα αρχικά δεδομένα σε Ευρώ (€)
+const roomsInEuro = [
+    { id: 1, name: "Standard Room", priceEUR: 80 },
+    { id: 2, name: "Superior Suite", priceEUR: 150 },
+    { id: 3, name: "Deluxe Villa", priceEUR: 300 }
 ];
 
-// 2. Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ:
-// Πρέπει να γράψεις μια Arrow Function που χρησιμοποιεί τη μέθοδο .filter() της ES6.
-// Η συνάρτηση πρέπει να επιστρέφει ΜΟΝΟ τα δωμάτια που είναι διαθέσιμα (isAvailable: true) 
-// ΚΑΙ έχουν τιμή μικρότερη ή ίση με 150 ευρώ.
+// Υποθέτουμε ότι η ισοτιμία είναι: 1 Ευρώ = 1.10 Δολάρια
+const EXCHANGE_RATE = 1.10;
 
-const filterAvailableRooms = (rooms) => {
-    // ΓΡAΨΕ ΤΟΝ ΚΩΔΙΚA ΣΟΥ ΕΔΩ
-    return rooms.filter(room => room.isAvailable && room.price <= 150);
+// 2. Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ:
+// Γράψε μια Arrow Function που χρησιμοποιεί τη μέθοδο .map().
+// Πρέπει να επιστρέφει έναν ΝΕΟ πίνακα από objects, όπου κάθε object θα έχει:
+// α) Το ίδιο name
+// β) Την αρχική τιμή priceEUR
+// γ) Μια ΝΕA ιδιότητα priceUSD (το priceEUR πολλαπλασιασμένο με το EXCHANGE_RATE)
+
+const convertPricesToUSD = (roomsArray) => {
+    return roomsArray.map(room => ({
+        ...room,
+        priceUSD: room.priceEUR * EXCHANGE_RATE
+    }));
 };
 
-// 3. Έλεγχος αποτελέσματος
-const availableBudgetRooms = filterAvailableRooms(hotelRooms);
-console.log("Αποτελέσματα Φιλτραρίσματος:", availableBudgetRooms);
+// 3. Έλεγχος αποτελέσματος στο Terminal
+const roomsWithUSD = convertPricesToUSD(roomsInEuro);
+console.log("Δωμάτια με Δολάρια:", roomsWithUSD);
