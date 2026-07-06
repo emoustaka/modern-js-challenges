@@ -1,27 +1,26 @@
-// 1. Τα αρχικά δεδομένα σε Ευρώ (€)
-const roomsInEuro = [
-    { id: 1, name: "Standard Room", priceEUR: 80 },
-    { id: 2, name: "Superior Suite", priceEUR: 150 },
-    { id: 3, name: "Deluxe Villa", priceEUR: 300 }
+const hotelRooms = [
+    { id: 1, name: "Standard Room", priceEUR: 80, isAvailable: true },
+    { id: 2, name: "Superior Suite", priceEUR: 150, isAvailable: false },
+    { id: 3, name: "Deluxe Villa", priceEUR: 300, isAvailable: true },
+    { id: 4, name: "Executive Room", priceEUR: 120, isAvailable: true }
 ];
 
-// Υποθέτουμε ότι η ισοτιμία είναι: 1 Ευρώ = 1.10 Δολάρια
 const EXCHANGE_RATE = 1.10;
 
-// 2. Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ:
-// Γράψε μια Arrow Function που χρησιμοποιεί τη μέθοδο .map().
-// Πρέπει να επιστρέφει έναν ΝΕΟ πίνακα από objects, όπου κάθε object θα έχει:
-// α) Το ίδιο name
-// β) Την αρχική τιμή priceEUR
-// γ) Μια ΝΕA ιδιότητα priceUSD (το priceEUR πολλαπλασιασμένο με το EXCHANGE_RATE)
-
-const convertPricesToUSD = (roomsArray) => {
-    return roomsArray.map(room => ({
-        ...room,
-        priceUSD: room.priceEUR * EXCHANGE_RATE
-    }));
+// ΑΠΟΣΤΟΛΗ: Χρησιμοποίησε .filter().map() στη σειρά (chaining)
+const getAvailableRoomsInUSD = (rooms) => {
+    return rooms
+        .filter(room => room.isAvailable) // Κρατάει μόνο τα διαθέσιμα
+        .map(room => {
+            // Επιστρέφει το object με τη νέα τιμή priceUSD
+            return {
+                id: room.id,
+                name: room.name,
+                priceEUR: room.priceEUR,
+                priceUSD: room.priceEUR * EXCHANGE_RATE
+            };
+        });
 };
 
-// 3. Έλεγχος αποτελέσματος στο Terminal
-const roomsWithUSD = convertPricesToUSD(roomsInEuro);
-console.log("Δωμάτια με Δολάρια:", roomsWithUSD);
+const finalResult = getAvailableRoomsInUSD(hotelRooms);
+console.log("Διαθέσιμα δωμάτια σε USD:", finalResult);
