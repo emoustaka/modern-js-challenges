@@ -1,27 +1,25 @@
-// Δεδομένα ενός High-End Ξενοδοχείου
-const hotelInfo = {
-    hotelName: "Grand Plaza Athens",
-    stars: 5,
-    location: "Syntagma, Greece",
-    marketingStats: {
-        totalReviews: 1240,
-        averageRating: 4.8
-    }
+const hotelStatus = {
+    name: "Aegean View Resort",
+    isOpen: true,
+    rating: 4.8
 };
 
-// 🎯 Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ ΓΙΑ ΤΟ TASK 2:
-// Αντικατάστησε τις legacy αναθέσεις με ΕΝΑ Destructuring.
-// Πρέπει να πάρεις τα: hotelName, stars, location από το hotel.
-const logHotelMarketingData = (hotel) => {
-    
-    const { hotelName, stars, location, marketingStats: { averageRating } } = hotel;
+const getHotelSummary = (hotel) => {
+    // ❌ ΠΑΛΙΟΣ ΤΡΟΠΟΣ (If/Else). Σβήσε αυτές τις 8 γραμμές και βάλε ΕΝΑΝ Ternary Operator:
+    const availabilityMessage = hotel.isOpen ? "Currently Open" : "Closed for Season";
 
-    // -----------------------------------------------------------------
+    // ----------------------------------------------------------------------------------
 
-    // Αν το κάνεις σωστά, τα παρακάτω console.log θα δουλέψουν ακριβώς όπως πριν!
-    console.log(`Hotel: ${hotelName} (${stars} Stars)`);
-    console.log(`Location: ${location}`);
-    console.log(`Rating: ${averageRating} / 5`);
+    // 🎯 Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ:
+    // Γράψε έναν δεύτερο Ternary Operator για τη βαθμολογία.
+    // Αν το hotel.rating είναι μεγαλύτερο ή ίσο με 4.5, η μεταβλητή badge πρέπει να είναι "Top Rated".
+    // Αλλιώς, πρέπει να είναι "Standard".
+    const badge = hotel.rating >= 4.5 ? "Top Rated" : "Standard";
+
+    console.log(`Hotel: ${hotel.name}`);
+    console.log(`Status: ${availabilityMessage}`);
+    console.log(`Category: ${badge}`);
 };
 
-logHotelMarketingData(hotelInfo);
+getHotelSummary(hotelStatus);
+
