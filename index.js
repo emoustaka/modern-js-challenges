@@ -1,25 +1,28 @@
-const hotelStatus = {
-    name: "Aegean View Resort",
-    isOpen: true,
-    rating: 4.8
+// 1. Προσομοίωση εξωτερικού Server (Επιστρέφει δεδομένα μετά από 2 δευτερόλεπτα)
+const fetchRoomsFromServer = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve([
+                { id: 1, name: "Eco Double Room", price: 75 },
+                { id: 2, name: "Luxury Suite", price: 220 }
+            ]);
+        }, 2000); // 2000 χιλιοστά του δευτερολέπτου = 2 δευτερόλεπτα
+    });
 };
 
-const getHotelSummary = (hotel) => {
-    // ❌ ΠΑΛΙΟΣ ΤΡΟΠΟΣ (If/Else). Σβήσε αυτές τις 8 γραμμές και βάλε ΕΝΑΝ Ternary Operator:
-    const availabilityMessage = hotel.isOpen ? "Currently Open" : "Closed for Season";
+// 🎯 Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ:
+// Μεταέτρεψε αυτή τη συνάρτηση σε ασύγχρονη (async) και χρησιμοποίησε το await
+// για να πάρεις τα δεδομένα από τη fetchRoomsFromServer().
+const displayHotelData =  () => {
+    console.log("📍 Παρακαλώ περιμένετε, γίνεται φόρτωση των δωματίων...");
 
-    // ----------------------------------------------------------------------------------
+    // ΓΡAΨΕ ΤΟΝ ΚΩΔΙΚA ΣΟΥ ΕΔΩ:
+    // Πρέπει να καλέσεις τη fetchRoomsFromServer() χρησιμοποιώντας τη λέξη-κλειδί await
+    // και να αποθηκεύσεις το αποτέλεσμα σε μια μεταβλητή (π.χ. const rooms)
+    const rooms = await fetchRoomsFromServer();
 
-    // 🎯 Η ΔΙΚΗ ΣΟΥ ΑΠΟΣΤΟΛΗ:
-    // Γράψε έναν δεύτερο Ternary Operator για τη βαθμολογία.
-    // Αν το hotel.rating είναι μεγαλύτερο ή ίσο με 4.5, η μεταβλητή badge πρέπει να είναι "Top Rated".
-    // Αλλιώς, πρέπει να είναι "Standard".
-    const badge = hotel.rating >= 4.5 ? "Top Rated" : "Standard";
-
-    console.log(`Hotel: ${hotel.name}`);
-    console.log(`Status: ${availabilityMessage}`);
-    console.log(`Category: ${badge}`);
+    console.log("✅ Τα δεδομένα φορτώθηκαν επιτυχώς!");
+    console.log("Δωμάτια από το API:", rooms);
 };
 
-getHotelSummary(hotelStatus);
-
+displayHotelData();
